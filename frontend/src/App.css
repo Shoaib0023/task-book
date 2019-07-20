@@ -1,0 +1,82 @@
+#section {
+  position: relative ;
+}
+
+#checkbox{
+  width: 2vw ;
+}
+
+#todocontainer{
+  border-bottom: 2px solid rgba(192, 188, 188, 0.5) ;
+  font-family: sans-serif;
+} 
+
+#checkbox{
+  height: 20px;
+}
+
+.stats-bar{
+  background-color: rgba(226, 230, 231, 0.8);
+  font-family: sans-serif;
+  border-left: 5px solid  rgb(211, 204, 224) ;
+}
+
+#stats{
+  font-size: 55px;
+  color: rgba(0,0,0,0.6);
+}
+
+.stats-border{
+  border-left: 4px solid rgba(207, 85, 105, 0.3) ;
+}
+
+#todos{
+  background-color: rgba(211, 204, 224, 0.2);
+}
+
+#addtodo{
+  /* background-color: rgb(207, 85, 105); */
+  background-color: rgba(211, 204, 224, 0.2) ;
+  border-left: 5px solid rgb(211, 204, 224) ;
+}
+
+.cardcontainer{
+  margin-top: 150px ;
+}
+
+.card .card-body {
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  border: 10px solid rgba(121, 117, 117, 0.1);
+  height: 350px;
+}
+
+.card .card-title {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.card-signin .card-body {
+  padding: 2rem;
+}
+
+.submitbtn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 0.2s;
+}
+
+
+@media screen and (max-width:992px){
+  
+  #todotitle{
+    font-size: 20px;  
+  }
+
+  .badge{
+    font-size: 10px;
+  }
+}

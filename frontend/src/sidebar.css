@@ -1,0 +1,28 @@
+
+#sidebar{
+    height: 100%;
+    background-color: rgb(92, 92, 95);
+    font-family: sans-serif ;
+    height: 100vh;
+  }
+
+#header{
+    background-color: rgb(207, 85, 105) ;
+  }
+
+#sections {
+  margin-left: 8px;
+  font-size: 18px;
+}
+
+#sections:hover{
+    background-color: grey;
+  }
+
+
+@media screen and (max-width: 1200px){
+    #sidebar {
+      height: 100%;
+    }
+}
+  
