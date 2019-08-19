@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   async componentDidMount(){
-    const res = await axios.get('http://127.0.0.1:8000/api/todos/')
+    const res = await axios.get('https://dj-react-todo.herokuapp.com/api/todos/')
     const todos = res.data
     this.setState({
       todos,
@@ -31,7 +31,7 @@ class App extends Component {
     }
 
     if(todoobj){
-      const {data} = await axios.post('http://127.0.0.1:8000/api/todos/', todo)
+      const {data} = await axios.post('https://dj-react-todo.herokuapp.com/api/todos/', todo)
       const currentTodos = this.state.todos
       this.setState({
           'todos' : currentTodos.concat(data)
@@ -44,7 +44,7 @@ class App extends Component {
   }
 
   deleteTodo = async (event, pk) => {
-    const response = await axios.delete(`http://127.0.0.1:8000/api/todos/${pk}`)
+    const response = await axios.delete(`https://dj-react-todo.herokuapp.com/api/todos/${pk}`)
     this.componentDidMount() ;
   }
 
@@ -57,7 +57,7 @@ class App extends Component {
       'deadline': obj.deadline ,
       'crucial': !obj.crucial
     }
-    const response = await axios.put(`http://127.0.0.1:8000/api/todos/${pk}/`, todo)
+    const response = await axios.put(`https://dj-react-todo.herokuapp.com/api/todos/${pk}/`, todo)
     this.componentDidMount() ;
   }
 
@@ -68,7 +68,7 @@ class App extends Component {
        "completed" : !todo.completed
     }
 
-    await axios.put(`http://127.0.0.1:8000/api/todos/${todo.id}/`, todo1)
+    await axios.put(`https://dj-react-todo.herokuapp.com/api/todos/${todo.id}/`, todo1)
     this.componentDidMount() ;
   }
 
