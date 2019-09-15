@@ -1,12 +1,21 @@
 import React, { Component } from 'react' ;
-
+import { connect } from 'react-redux' ;
+import { authSignup } from '../actions/auth' ;
+import { Redirect } from 'react-router-dom' ;
+import PropTypes from 'prop-types' ;
+ 
 class Register extends Component{
+    static propTypes = {
+        isAuthenticated: PropTypes.bool ,
+        authSignup: PropTypes.func.isRequired
+    }
+
     constructor(props){
         super(props)
         this.state = {
             username: '' ,
             email: '', 
-            password: '', 
+            password1: '', 
             password2: ''
         }
     }
@@ -18,14 +27,25 @@ class Register extends Component{
     }
 
     onSubmit = (e) => {
-        console.log("Submitted...")
+       e.preventDefault() 
+       this.props.authSignup(this.state.username, this.state.email, this.state.password1, this.state.password2)
     }
 
     render(){
+        if (this.props.isAuthenticated){
+            return <Redirect to="/" />
+        }
+
+        let errorMessage = null ;
+        if (this.props.error){
+            errorMessage = <p>{this.props.error.message}</p>
+        }
+
         return (
             <div className="col-md-6 m-auto">
                 <div className="card card-body mt-5">
                     <h2 className="text-center">Register</h2>
+                    { errorMessage }
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Username</label>
@@ -37,7 +57,7 @@ class Register extends Component{
                         </div>
                         <div className="form-group">
                             <label>Password</label>
-                            <input type="password" className="form-control" name="password" onChange={this.onChange} value={this.state.password}/>
+                            <input type="password" className="form-control" name="password1" onChange={this.onChange} value={this.state.password1}/>
                         </div>
                         <div className="form-group">
                             <label>Username</label>
@@ -52,4 +72,11 @@ class Register extends Component{
     }
 }
 
-export default Register
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token != null ,
+        error: state.auth.error
+    }
+}
+
+export default connect(mapStateToProps, { authSignup })(Register)

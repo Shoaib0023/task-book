@@ -1,13 +1,8 @@
 import React, { Component } from 'react' ;
 import { connect } from 'react-redux' ;
-import axios from 'axios' ;
 import PropTypes from 'prop-types' ;
 import { deleteTodo, toggleCheckbox, toggleCrucialTask } from '../actions/todos' ;
 import { bindActionCreators } from 'redux';
-
-// todoValue(obj){
-//     return (obj.completed ? 'True' : 'False')
-//   }
 
 class Todos extends Component {
     static propTypes = {
@@ -56,7 +51,7 @@ class Todos extends Component {
 
     crucialTaskTag = (todo) => {
         if (todo.crucial === true){
-           return <span className="badge badge-success m-2">Crucial</span>
+           return <span className="badge badge-warning m-2 text-dark">Crucial</span>
         }
     }
 

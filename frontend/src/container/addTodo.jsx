@@ -46,6 +46,7 @@ class AddTodo extends Component {
                             </div>
                             <button className="btn btn-lg btn-block btn-info text-uppercase submitbtn mt-3" type="submit">Add Todo</button>
                         </form>
+                        <p className="small m-4 text-white">*Please enter both fields to add a Task</p>
                     </div>
                     </div>
                 </div>

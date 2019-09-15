@@ -1,3 +1,4 @@
+import axios from 'axios' ;
 import React, {Component} from 'react';
 
 import './App.css';
@@ -6,29 +7,34 @@ import SideBar from './components/sideBar'
 import TodoHeader from './container/todoHeader'
 import Todos from './container/todos'
 
-// import Alerts from './components/Alerts' ;
-
 import { connect } from 'react-redux' ;
 import PropTypes from 'prop-types' ;
 import { getTodos } from './actions/todos';
-import { loadUser } from './actions/auth' ;
-import store from './store'
-// axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-// axios.defaults.xsrfCookieName = "XCSRF-TOKEN";
+import store from './store' ;
+
+import { Redirect } from 'react-router-dom' ;
+
+import { authCheckState } from './actions/auth'
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "XCSRF-TOKEN";
 
 
 class App extends Component {
   static propTypes = {
     todos: PropTypes.array.isRequired,
-    getTodos: PropTypes.func.isRequired
+    isAuthenticated: PropTypes.bool
   };
 
   componentDidMount(){
-     // Action for fetching all Todos
+    store.dispatch(authCheckState()) ;
+        
     this.props.getTodos() ;
   }
 
   render(){
+        if (!this.props.isAuthenticated) {
+          return <Redirect to='/login' /> ;
+        }
     return (
         <div className="row" id="section">
           <div className="col-lg-2 col-md-12 pr-0">
@@ -44,7 +50,6 @@ class App extends Component {
               <AddTodo />
           </div>
           </div>
-      
      )
    }
  };
@@ -53,7 +58,7 @@ class App extends Component {
 function mapStateToProps(state){
   return {
       todos: state.todosReducer.todos ,
-      isAuthenticated: state.todosReducer.isAuthenticated 
+      isAuthenticated: state.auth.token != null 
   }
 }
 

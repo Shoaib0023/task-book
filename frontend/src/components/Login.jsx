@@ -1,18 +1,13 @@
 import React, { Component } from 'react' ;
-import store from '../store' ;
-import { loadUser, login } from '../actions/auth' ;
 import { Link, Redirect } from 'react-router-dom' ;
 import { connect } from 'react-redux' ;
 import PropTypes from 'prop-types' ;
- 
-class Login extends Component{
-    componentDidMount(){
-        store.dispatch(loadUser())
-    }
+import { authLogin } from '../actions/auth' ; 
 
+class Login extends Component{
     static propTypes = {
         isAuthenticated:  PropTypes.bool,
-        login: PropTypes.func.isRequired
+        authLogin: PropTypes.func.isRequired
     }
 
     constructor(props){
@@ -32,17 +27,24 @@ class Login extends Component{
 
     onSubmit = (e) => {
         e.preventDefault() ;
-        this.props.login(this.state.username, this.state.password) ;
+        this.props.authLogin(this.state.username, this.state.password) ;
     } ;
 
     render(){
         if (this.props.isAuthenticated) {
             return <Redirect to='/' /> ;
         }
-        return (
+
+        let errorMessage = null ;
+        if (this.props.error){
+            errorMessage = <p>{this.props.error.message}</p>
+        }
+
+        return (          
             <div className="col-md-6 m-auto">
                 <div className="card card-body mt-5">
                     <h2 className="text-center">Login</h2>
+                    { errorMessage }
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Username</label>
@@ -65,8 +67,10 @@ class Login extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.token != null ,
+        error: state.auth.error
     }
 }
 
-export default connect(mapStateToProps, {login})(Login)
+
+export default connect(mapStateToProps, { authLogin })(Login)

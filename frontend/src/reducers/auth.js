@@ -1,44 +1,57 @@
 const initialState = {
-    token: localStorage.getItem('token') ,
-    isAuthenticated: null ,
-    isLoading: false ,
-    user: null 
+    token: null,
+    error: null ,
+    loading: false, 
+    user: null, 
+    getUserError: null 
 };
 
 export const auth = (state=initialState, action) => {
+
     switch(action.type){
-        case 'USER_LOADING':
+        case 'AUTH_START' :
             return {
                 ...state, 
-                isLoading: true 
+                error: null ,
+                loading: true, 
+                getUserError: null
             }
-        
-        case 'USER_LOADED':
+
+        case 'AUTH_SUCCESS' :
             return {
                 ...state, 
-                isLoading: false ,
-                isAuthenticated: true,
-                user: action.payload
-            };
-        
-        case 'AUTH_ERROR':
-        case 'LOGIN_FAIL':
-            localStorage.removeItem('token')
+                error :null ,
+                loading : false ,
+                token : action.token
+            }
+
+        case 'AUTH_FAIL' :
             return {
                 ...state, 
-                isLoading: false ,
-                isAuthenticated: false,
+                error: action.error ,
+                loading: false
+            }
+
+        case 'AUTH_LOGOUT' :
+            return {
+                ...state, 
+                token: null, 
                 user: null ,
-                token: null
-            };
-                
-        case 'LOGIN_SUCCESS':
-            localStorage.setItem('token', action.payload.token)
+                getUserError: null 
+            }
+
+        case 'GET_USER_SUCCESS':
             return {
                 ...state ,
-                ...action.payload ,
-                isAuthenticated: true, 
-                isLoading: false
+                user: action.user ,
+                getUserError: null
+            }
+        
+        case 'GET_USER_FAIL':
+            return {
+                ...state ,
+                user: null ,
+                getUserError: action.error
             }
 
         default:

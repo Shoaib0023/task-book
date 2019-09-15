@@ -27,7 +27,7 @@ const todosReducer = (state=initialState , action) => {
             return {
                 ...state ,
                 todos : state.todos.map(todo => (
-                    todo.id == action.payload.id ? {...todo , completed: !todo.completed} : todo
+                    todo.id === action.payload.id ? {...todo , completed: !todo.completed} : todo
             ))
         }
 
@@ -35,7 +35,7 @@ const todosReducer = (state=initialState , action) => {
             return {
                 ...state ,
                 todos : state.todos.map(todo => (
-                    todo.id == action.payload.id ? {...todo , crucial: !todo.crucial} : todo
+                    todo.id === action.payload.id ? {...todo , crucial: !todo.crucial} : todo
                 ))
             }
 
